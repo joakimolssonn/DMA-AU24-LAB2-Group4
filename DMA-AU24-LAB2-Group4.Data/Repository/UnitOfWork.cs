@@ -6,7 +6,32 @@ using System.Threading.Tasks;
 
 namespace DMA_AU24_LAB2_Group4.Data.Repository
 {
-    internal class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
+        private readonly ApplicationDbContext context;
+
+        public IBookingRepository Bookings {  get; private set; }
+        public IConcertRepository Concerts { get; private set; }
+        public ICustomerRepository Customers { get; private set; }
+        public IPerformanceRepository Performances { get; private set; }
+
+        public UnitOfWork (ApplicationDbContext context)
+        {  
+            this.context = context;
+            Bookings = new BookingRepository (context);
+            Concerts = new ConcertRepository (context);
+            Customers = new CustomerRepository (context);
+            Performances = new PerformanceRepository (context);
+        }
+
+        public void Dispose()
+        {
+            context.Dispose();
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await context.SaveChangesAsync();
+        }
     }
 }
