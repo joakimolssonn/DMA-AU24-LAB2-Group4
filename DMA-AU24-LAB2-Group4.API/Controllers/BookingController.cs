@@ -102,5 +102,24 @@ namespace DMA_AU24_LAB2_Group4.API.Controllers
             return Ok(_mapper.Map<BookingCreateDto>(booking));
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                // Ensure the Booking exists
+                Booking? booking = await _unitOfWork.Bookings.GetByIdAsync(id);
+                if (booking is null)
+                    return NotFound(ErrorCode.RecordNotFound.ToString());
+
+                _unitOfWork.Bookings.Delete(id);
+                await _unitOfWork.SaveChangesAsync();                
+            }
+            catch (Exception)
+            {
+                return BadRequest(ErrorCode.CouldNotDeleteBooking.ToString());
+            }
+            return NoContent();
+        }
     }
 }
