@@ -54,12 +54,12 @@ namespace DMA_AU24_LAB2_Group4.API.Controllers
                 booking = _mapper.Map<Booking>(bookingDto);
 
                 if (!ModelState.IsValid)
-                { 
+                {
                     return BadRequest(ModelState);
                 }
 
                 // Ensure the Customer exists
-                Customer customer = await _unitOfWork.Customers.GetByIdAsync(booking.CustomerId);
+                Customer? customer = await _unitOfWork.Customers.GetByIdAsync(booking.CustomerId);
                 if (customer is null)
                 {
                     ModelState.AddModelError("CustomerId", "Invalid Customer ID");
@@ -67,10 +67,18 @@ namespace DMA_AU24_LAB2_Group4.API.Controllers
                 }
 
                 // Ensure the Performance exists
-                Performance performance = await _unitOfWork.Performances.GetByIdAsync(booking.PerformanceId);
+                Performance? performance = await _unitOfWork.Performances.GetByIdAsync(booking.PerformanceId);
                 if (performance is null)
                 {
                     ModelState.AddModelError("PerformanceId", "Invalid Performance ID");
+                    return BadRequest(ModelState);
+                }
+
+                // Ensure the Booking does not already exist
+                Booking? existingBooking = await _unitOfWork.Bookings.FindByCustomerAndPerformanceAsync(booking.CustomerId, booking.PerformanceId);
+                if (existingBooking is not null)
+                {
+                    ModelState.AddModelError("Booking", "Booking already exists");
                     return BadRequest(ModelState);
                 }
 
@@ -93,5 +101,6 @@ namespace DMA_AU24_LAB2_Group4.API.Controllers
             }
             return Ok(_mapper.Map<BookingCreateDto>(booking));
         }
+
     }
 }
