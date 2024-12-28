@@ -47,6 +47,16 @@ namespace DMA_AU24_LAB2_Group4.Data.Repository
         {
             return await DbContext.Bookings.FirstOrDefaultAsync(b => b.CustomerId == customerId && b.PerformanceId == performanceId);
         }
+
+        public async Task<IEnumerable<Booking>> GetAllBookingsByCustomerIdAsync(int customerId)
+        {
+            return await DbContext.Bookings
+                .Include(c => c.Customer)
+                .Include(p => p.Performance)
+                .ThenInclude(c => c.Concert)
+                .Where(b => b.CustomerId == customerId)
+                .ToListAsync();
+        }
     }
 
 }
