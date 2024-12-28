@@ -40,10 +40,29 @@ namespace DMA_AU24_LAB2_Group4.API.Controllers
         public async Task<IActionResult> ListById(int id)
         {
             var booking = await _unitOfWork.Bookings.GetAllBookingDetailsByIdAsync(id);
-            if (booking is null)
-                return NotFound();
-            return Ok(_mapper.Map<BookingDto>(booking));
+
+            // Check if no bookings were found for the provided ID
+            if (booking == null || !booking.Any())
+            {
+                return NotFound(ErrorCode.BookingIDNotFound.ToString());
+            }
+
+            return Ok(_mapper.Map<IEnumerable<BookingDto>>(booking));
         }
+
+        [HttpGet("customer/{customerId}")]
+        public async Task<IActionResult> ListByCustomerId(int customerId)
+        {
+            var bookings = await _unitOfWork.Bookings.GetAllBookingsByCustomerIdAsync(customerId);
+
+            // Check if no bookings were found for the provided Customer ID
+            if (bookings == null || !bookings.Any())
+            {
+                return NotFound(ErrorCode.BookingIDNotFound.ToString());
+            }
+            return Ok(_mapper.Map<IEnumerable<BookingDto>>(bookings));
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] BookingCreateDto bookingDto)
