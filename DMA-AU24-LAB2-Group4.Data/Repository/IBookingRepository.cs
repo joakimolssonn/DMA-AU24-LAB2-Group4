@@ -9,7 +9,8 @@ namespace DMA_AU24_LAB2_Group4.Data.Repository
 {
     public interface IBookingRepository : IRepository<Booking>
     {
-        Task<IEnumerable<Booking>> GetAllBookingDetailsAsync(int id);
+        Task<IEnumerable<Booking>> GetAllBookingDetailsByIdAsync(int id);
+        Task<IEnumerable<Booking>> GetAllBookingDetailsAsync();
         void Delete(int id);
     }
 }

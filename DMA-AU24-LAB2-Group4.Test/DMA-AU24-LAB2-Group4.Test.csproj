@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>DMA_AU24_LAB2_Group4.Test</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DMA-AU24-LAB2-Group4.API\DMA-AU24-LAB2-Group4.API.csproj" />
+    <ProjectReference Include="..\DMA-AU24-LAB2-Group4.Data.DTO\DMA-AU24-LAB2-Group4.Data.DTO.csproj" />
+    <ProjectReference Include="..\DMA-AU24-LAB2-Group4.Data\DMA-AU24-LAB2-Group4.Data.csproj" />
+  </ItemGroup>
+
+</Project>

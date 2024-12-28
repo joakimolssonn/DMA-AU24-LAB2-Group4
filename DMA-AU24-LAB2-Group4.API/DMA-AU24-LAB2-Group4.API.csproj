@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>DMA_AU24_LAB2_Group4.API</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DMA-AU24-LAB2-Group4.Data.DTO\DMA-AU24-LAB2-Group4.Data.DTO.csproj" />
+    <ProjectReference Include="..\DMA-AU24-LAB2-Group4.Data\DMA-AU24-LAB2-Group4.Data.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -17,7 +17,7 @@ namespace DMA_AU24_LAB2_Group4.Data.Repository
             
         }
 
-        public async Task<IEnumerable<Booking>> GetAllBookingDetailsAsync(int id)
+        public async Task<IEnumerable<Booking>> GetAllBookingDetailsByIdAsync(int id)
         {
             return await DbContext.Bookings
                 .Include(c => c.Customer)
@@ -32,6 +32,15 @@ namespace DMA_AU24_LAB2_Group4.Data.Repository
             Booking? booking = DbContext.Bookings.Find(id);
             if (booking is not null)
                 DbContext.Bookings.Remove(booking);
+        }
+
+        public async Task<IEnumerable<Booking>> GetAllBookingDetailsAsync()
+        {
+            return await DbContext.Bookings
+                .Include(c => c.Customer)
+                .Include(p => p.Performance)
+                .ThenInclude(c => c.Concert)
+                .ToListAsync();
         }
     }
 
