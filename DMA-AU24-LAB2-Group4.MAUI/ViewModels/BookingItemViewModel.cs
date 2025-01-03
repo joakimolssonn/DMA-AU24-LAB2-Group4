@@ -30,7 +30,7 @@ namespace DMA_AU24_LAB2_Group4.MAUI.ViewModels
 
         private bool IsNewBooking(Booking booking)
         {
-            if (string.IsNullOrWhiteSpace(booking.Id))
+            if (booking.Id != 0)
                 return true;
             return false;
         }

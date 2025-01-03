@@ -31,15 +31,15 @@ namespace DMA_AU24_LAB2_Group4.MAUI.ViewModels
             BookingItems = new(await _bookingService.GetBookingAsync() ?? []);
         }
 
-        [RelayCommand]
-        public async Task AddBooking()
-        {
-            var navigationParameter = new Dictionary<string, object>
-            {
-                { nameof(BookingItems), new Booking() { Id = Guid.NewGuid().ToString() } }
-            };
-            await Shell.Current.GoToAsync("TodoItemPage", navigationParameter);
-        }
+        //[RelayCommand]
+        //public async Task AddBooking()
+        //{
+        //    var navigationParameter = new Dictionary<string, object>
+        //    {
+        //        { nameof(BookingItems), new Booking() { Id = Guid.NewGuid().ToString() } }
+        //    };
+        //    await Shell.Current.GoToAsync("BookingItemPage", navigationParameter);
+        //}
 
         [RelayCommand]
         public async Task SelectionChanged()
@@ -49,7 +49,7 @@ namespace DMA_AU24_LAB2_Group4.MAUI.ViewModels
             {
                 { nameof(Booking), SelectedBooking }
             };
-            await Shell.Current.GoToAsync("TodoItemPage", navigationParameter);
+            await Shell.Current.GoToAsync("BookingItemPage", navigationParameter);
         }
     }
 }

@@ -10,9 +10,9 @@ namespace DMA_AU24_LAB2_Group4.MAUI.Models
 {
     public class Booking
     {
-        public string Id { get; set; } = null!;
-        public int PerformanceId { get; set; } = 0!;
-        public int CustomerId { get; set; } = 0!;
+        public int Id { get; set; } = 0!;
+        public int? PerformanceId { get; set; }
+        public int? CustomerId { get; set; }
         //Navigation properties
         public Performance? Performance { get; set; }
         public Customer? Customer { get; set; }
