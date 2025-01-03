@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using CommunityToolkit.Maui.Core.Extensions;
 using DMA_AU24_LAB2_Group4.Data.DTO;
 using DMA_AU24_LAB2_Group4.MAUI.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -17,7 +19,7 @@ namespace DMA_AU24_LAB2_Group4.MAUI.Services
         private JsonSerializerOptions _serializerOptions;
         private IHttpsClientHandlerService _httpsClientHandlerService;
         private IMapper _mapper;
-        public List<Booking>? Items { get; private set; }
+        public ObservableCollection<Booking>? Items { get; set; }
         public RestService(IHttpsClientHandlerService service, IMapper mapper)
         {
             _mapper = mapper;
@@ -37,9 +39,9 @@ _client = new HttpClient();
                 WriteIndented = true
             };
         }
-        public async Task<List<Booking>?> RefreshDataAsync()
+        public async Task<ObservableCollection<Booking>?> RefreshDataAsync()
         {
-            Items = new List<Booking>();
+            Items = new ObservableCollection<Booking>();
             Uri uri = new Uri(string.Format(Constants.RestUrl, string.Empty));
             try
             {
@@ -50,7 +52,7 @@ _client = new HttpClient();
                     Items = _mapper.Map<List<Booking>>
                     (
                     JsonSerializer.Deserialize<List<BookingDto>>(content, _serializerOptions)
-                    );
+                    ).ToObservableCollection();
                 }
                 
             }
@@ -81,7 +83,7 @@ _client = new HttpClient();
                 Debug.WriteLine(@"\tERROR {0}", ex.Message);
             }
         }
-        public async Task DeleteBookingAsync(string id) // bytade från string id till int id, kan behövas att se över
+        public async Task DeleteBookingAsync(int id) // bytade från string id till int id, kan behövas att se över
         {
             Uri uri = new Uri(string.Format(Constants.RestUrl, id));
             try

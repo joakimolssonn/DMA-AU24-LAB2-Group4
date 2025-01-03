@@ -24,14 +24,14 @@ namespace DMA_AU24_LAB2_Group4.MAUI
     		builder.Logging.AddDebug();
 #endif
             // Services
-builder.Services.AddSingleton<IHttpsClientHandlerService, HttpsClientHandlerService>();
+            builder.Services.AddSingleton<IHttpsClientHandlerService, HttpsClientHandlerService>();
             builder.Services.AddSingleton<IRestService, RestService>();
             builder.Services.AddSingleton<IBookingService, BookingService>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //builder.Services.AddAutoMapper(typeof(TodoItemProfile));
             
             // Pages
-builder.Services.AddSingleton<BookingListPage>();
+            builder.Services.AddSingleton<BookingListPage>();
             builder.Services.AddTransient<BookingItemPage>();
             // ViewModels
             builder.Services.AddSingleton<BookingListViewModel>();
